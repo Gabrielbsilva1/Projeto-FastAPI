@@ -1,2 +1,2 @@
 # Projeto-FastAPI
-Projeto de delivery FastAPI
+Projeto de Estudos FastAPi
