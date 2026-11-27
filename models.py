@@ -16,13 +16,15 @@ class Funcionario(Base):
     email = Column("email",String, nullable=False, unique=True)
     telefone = Column("telefone",Integer)
     senha = Column("senha",String, nullable=False)
-    ativo = Column("ativo",Boolean)
+    ativo = Column("ativo",Boolean, default=True)
     admin = Column("admin",Boolean, nullable=False, default=False)
 
-    def __init__(self,nome,email,senha,ativo=True):
+    def __init__(self,nome,email,senha,ativo,admin):
         self.nome = nome
         self.email = email
         self.senha = senha
+        self.ativo = ativo
+        self.admin = admin
  
 # criar as classes/Tabelas do banco 
 class Usuario(Base):
@@ -33,12 +35,13 @@ class Usuario(Base):
     email = Column("email", String, nullable=False, unique=True) # nullable=False impede que se crie um usuario sem a coluna ativada com False
     telefone = Column("telefone", Integer)
     senha = Column("senha", String, nullable=False)
-    ativo = Column("ativo", Boolean)
+    ativo = Column("ativo", Boolean, default=True)
 
-    def __init__(self, nome, email, senha, ativo=True):
+    def __init__(self, nome, email, senha, ativo):
         self.nome = nome
         self.email = email
         self.senha = senha
+        self.ativo = ativo
 
 class Pedido(Base):
     __tablename__ = "pedidos"
@@ -49,7 +52,8 @@ class Pedido(Base):
     usuario = Column("usuario", ForeignKey("usuarios.id"))
     preço = Column("preço", Float)
 
-    def __init__(self, usuario, status="PENDENTE", preço=0):
+    def __init__(self, itens, usuario, status="PENDENTE", preço=0):
+        self.itens = itens
         self.usuario = usuario
         self.preço = preço 
         self.status = status
